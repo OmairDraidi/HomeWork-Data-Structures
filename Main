@@ -1,0 +1,221 @@
+Binary SearchTree main :
+
+import java.util.Random;
+
+public class Main {
+
+    public static BinarySearchTree tree = new BinarySearchTree();
+    public static Random t = new Random();
+    static int n = 5000;
+    public static void main(String[] args) {
+        //-----------------------Insert-----------------------------------------
+        double startTime = System.nanoTime();
+
+        for (int i = 1 ;i <= n ;i++) {
+
+            tree.insert(t.nextInt());
+
+        }
+
+        double endTime = System.nanoTime();
+
+
+        System.out.println("Execution Time in MliSeconds: (insert) = " + ((endTime - startTime)* Math.pow(10,-6) ));
+
+        //----------------------------Remove ------------------------------------
+        double startTime2 = System.nanoTime();
+
+
+        for (int i = 1 ;i <= n ;i++){
+
+            tree.deleteKey(t.nextInt());
+
+
+        }
+
+
+        double endTime2 = System.nanoTime();
+
+        System.out.println("Execution Time in MliSeconds: (Remove) = " + ((endTime - startTime)* Math.pow(10,-6) ));
+
+        //----------------------------Search------------------------------------
+        double startTime5 = System.nanoTime();
+
+        for (int i = 1 ; i <= n ;i++){
+
+            tree.search(t.nextInt());
+
+        }
+
+        double endTime5 = System.nanoTime();
+
+        System.out.println("Execution Time in MliSeconds: (Search) = " + ((endTime - startTime)* Math.pow(10,-6) ));
+
+        //----------------------------Ubdate ------------------------------------
+        double startTime3 = System.nanoTime();
+        for (int i= 1 ; i <= n ;i++) {
+            tree.update(t.nextInt(),t.nextInt());
+        }
+        double endTime3 = System.nanoTime();
+
+        System.out.println("Execution Time in MliSeconds: (Ubdate) = " + ((endTime - startTime)* Math.pow(10,-6) ));
+
+        //----------------------------Print ------------------------------------
+        double startTime4 = System.nanoTime();
+
+        tree.inOrder();
+
+        double endTime4 = System.nanoTime();
+
+        System.out.println();
+
+        System.out.println("Execution Time in MliSeconds: (Print) = " + ((endTime - startTime)* Math.pow(10,-6) ));
+    }
+}
+--------------------------------------------
+HashMap main ;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Random;
+import java.util.TreeMap;
+
+public class Main {
+    public static void main(String[] args) {
+
+        int n = 5000;
+        Random rand = new Random();
+
+        // create hash map
+        Map<Integer, Integer> hashMap = new HashMap<>();
+
+        // insert values
+        long startTime = System.nanoTime();
+        for (int i = 0; i < n; i++) {
+            int value = rand.nextInt(10000);
+            hashMap.put(value, value);
+        }
+        long endTime = System.nanoTime();
+        long hashMapInsertTime = endTime - startTime;
+
+        System.out.println("Insertion time (hash map): " + hashMapInsertTime + " ns");
+
+        // remove values
+        startTime = System.nanoTime();
+        for (int i = 0; i < n; i++) {
+            int value = rand.nextInt(10000);
+            if (hashMap.containsKey(value)) {
+                hashMap.remove(value);
+            }
+        }
+        endTime = System.nanoTime();
+        long hashMapRemoveTime = endTime - startTime;
+
+        System.out.println("Removal time (hash map): " + hashMapRemoveTime + " ns");
+
+        // search values
+        startTime = System.nanoTime();
+        for (int i = 0; i < n; i++) {
+            int value = rand.nextInt(10000);
+            hashMap.containsKey(value);
+        }
+        endTime = System.nanoTime();
+        long hashMapSearchTime = endTime - startTime;
+        System.out.println("Removal time (hash map): " + hashMapRemoveTime + " ns");
+
+        // update values
+        startTime = System.nanoTime();
+        for (int i = 0; i < n; i++) {
+            int key = rand.nextInt(10000);
+            int value = rand.nextInt(10000);
+            hashMap.put(key, value);
+        }
+        endTime = System.nanoTime();
+        long hashMapUpdateTime = endTime - startTime;
+
+        System.out.println("Update time (hash map): " + hashMapUpdateTime + " ns");
+
+        // print values in ascending order
+        startTime = System.nanoTime();
+        System.out.println("Values in ascending order (hash map):");
+        for (Map.Entry<Integer, Integer> entry : hashMap.entrySet()) {
+            System.out.println(entry.getKey() + ": " + entry.getValue());
+        }
+        endTime = System.nanoTime();
+        long hashMapPrintTime = endTime - startTime;
+
+        System.out.println("Update time (hash map): " + hashMapUpdateTime + " ns");
+
+
+
+    }
+}
+-----------------------------------------------------
+doubly Linked List main : 
+import java.util.Random;
+
+public class Main {
+
+    public static MyDoublyLinkedList list = new MyDoublyLinkedList<>();
+    public static Random t = new Random();
+    static  int n = 5000;
+    public static void main(String[] args) {
+        //-----------------------Insert-----------------------------------------
+        double startTime = System.nanoTime();
+
+        for (int i = 1 ;i <= n ;i++) {
+            list.add(t.nextInt());
+        }
+
+        double endTime = System.nanoTime();
+
+
+        System.out.println("Execution Time in MliSeconds: (insert) = " + ((endTime - startTime)* Math.pow(10,-6) ));
+
+        //----------------------------Remove ------------------------------------
+        double startTime2 = System.nanoTime();
+
+        for (int i = 1 ;i <= n ;i++){
+
+            list.removeByelement(t.nextInt());
+        }
+
+        double endTime2 = System.nanoTime();
+
+        System.out.println("Execution Time in MliSeconds: (Remove) = " + ((endTime - startTime)* Math.pow(10,-6) ));
+
+        //----------------------------Search------------------------------------
+        double startTime5 = System.nanoTime();
+
+        for (int i = 1; i <= 5000 ;i++){
+
+            list.search(t.nextInt());
+        }
+
+        double endTime5 = System.nanoTime();
+
+        System.out.println("Execution Time in MliSeconds: (Search) = " + ((endTime - startTime)* Math.pow(10,-6) ));
+
+        //----------------------------Ubdate ------------------------------------
+        double startTime3 = System.nanoTime();
+
+        for (int i = 1 ;i <= 5000 ;i++){
+            list.Update(t.nextInt(),t.nextInt());
+        }
+
+        double endTime3 = System.nanoTime();
+
+        System.out.println("Execution Time in MliSeconds: (Ubdate) = " + ((endTime - startTime)* Math.pow(10,-6) ));
+
+        //----------------------------Print ------------------------------------
+        double startTime4 = System.nanoTime();
+
+        list.bubbleSort();
+        list.printAllElement();
+
+        double endTime4 = System.nanoTime();
+
+        System.out.println("Execution Time in MliSeconds: (Print) = " + ((endTime - startTime)* Math.pow(10,-6) ));
+    }
+
+}
