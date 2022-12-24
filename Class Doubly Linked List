@@ -1,0 +1,326 @@
+public class MyDoublyLinkedList <E> {
+    NodeDoublyLinkedList head;
+    NodeDoublyLinkedList tail;
+    private int size;
+
+    public MyDoublyLinkedList() {
+    }
+
+    public int getSize (){
+        return this.size;
+    }
+
+
+    public Integer getFirst (){
+        NodeDoublyLinkedList curr = head;
+        if (isEmpty())return null;
+        return curr.getData();
+    }
+
+    public Integer getLast (){
+            NodeDoublyLinkedList curr = head;
+            if (isEmpty())return null;
+            while (curr.next != null){
+                curr = curr.next;
+            }
+            return curr.getData();
+
+    }
+
+    //check if a doubly linked list is empty
+    public boolean isEmpty() {
+        return head == null;
+    }
+
+    // adds a new node with the given data to the node of the list
+    public void addByIndex(int index, int data) {
+        if (index < 0 || index > size) {
+            throw new IndexOutOfBoundsException();
+        }
+
+        if (index == 0) {
+            addFirst(data);
+            return;
+        }
+
+        if (index == size) {
+            add(data);
+            return;
+        }
+
+        NodeDoublyLinkedList newNode = new NodeDoublyLinkedList(data);
+        NodeDoublyLinkedList current = head;
+        for (int i = 0; i < index - 1; i++) {
+            current = current.next;
+        }
+        newNode.prev = current;
+        newNode.next = current.next;
+        current.next.prev = newNode;
+        current.next = newNode;
+    }
+    // adds a new node with the given data to the end of the list
+    public void add(int data) {
+        NodeDoublyLinkedList newNode = new NodeDoublyLinkedList(data);
+
+        if (tail == null) {
+            head = newNode;
+            tail = newNode;
+        } else {
+            tail.next = newNode;
+            newNode.prev = tail;
+            tail = newNode;
+        }
+    }
+    // adds a new node with the given data to the beginning of the list
+    public void addFirst(int data) {
+        NodeDoublyLinkedList newNode = new NodeDoublyLinkedList(data);
+
+        if (head == null) {
+            head = newNode;
+            tail = newNode;
+        } else {
+            head.prev = newNode;
+            newNode.next = head;
+            head = newNode;
+        }
+    }
+
+    //To remove the last node from a doubly linked list,
+    public void removeLast() {
+        if (isEmpty()) {
+           return;
+        }
+
+        if (head == tail) {
+            head = null;
+            tail = null;
+            return;
+        }
+
+        tail = tail.prev;
+        tail.next = null;
+
+        size -= 1;
+    }
+
+
+    //To remove the first node from a doubly linked list
+    public void removeFirst() {
+        if (isEmpty()) {
+            return;
+        }
+
+        if (head == tail) {
+            head = null;
+            tail = null;
+            return;
+        }
+
+        head = head.next;
+        head.prev = null;
+        size -= 1;
+    }
+
+    // To remove a node with a specific data value from a doubly linked list
+    public void removeByelement(int data) {
+        if (isEmpty()) {
+            return;
+        }
+
+        if (head.getData() == data) {
+            removeFirst();
+            return;
+        }
+
+        if (tail.getData() == data) {
+            removeLast();
+            return;
+        }
+
+        NodeDoublyLinkedList current = head.next;
+        while (current != null) {
+            if (current.getData() == data) {
+                current.prev.next = current.next;
+                current.next.prev = current.prev;
+                return;
+            }
+            current = current.next;
+        }
+    }
+
+
+    //To remove a node at a specific index from a doubly linked list
+    public void removeByIndex(int index) {
+        if (index < 0 || index >= size) {
+            throw new IndexOutOfBoundsException();
+        }
+
+        if (index == 0) {
+            removeFirst();
+            return;
+        }
+
+        if (index == size - 1) {
+            removeLast();
+            return;
+        }
+
+        NodeDoublyLinkedList current = head;
+        for (int i = 0; i < index; i++) {
+            current = current.next;
+        }
+        current.prev.next = current.next;
+        current.next.prev = current.prev;
+    }
+
+
+    // To find the middle node of a doubly linked list,
+    public NodeDoublyLinkedList findMiddle() {
+        if (isEmpty()) {
+            return null;
+        }
+
+        NodeDoublyLinkedList slow = head;
+        NodeDoublyLinkedList fast = head;
+
+        while (fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+
+        return slow;
+    }
+
+
+
+    public void removeAll (){
+        if (isEmpty()){
+            return;
+        }
+        head = tail = null;
+        size = 0;
+    }
+
+    //To find the maximum data value in a doubly linked list,
+    public int max() {
+        if (isEmpty()) {
+            return -1;
+        }
+
+        int max = head.getData();
+        NodeDoublyLinkedList current = head.next;
+
+        while (current != null) {
+            if (current.getData() > max) {
+                max = current.getData();
+            }
+            current = current.next;
+        }
+
+        return max;
+    }
+
+    //To find the minimum  data value in a doubly linked list,
+    public int min() {
+        if (isEmpty()) {
+           return -1;
+        }
+
+        int min = head.getData();
+        NodeDoublyLinkedList current = head.next;
+
+        while (current != null) {
+            if (current.getData() < min) {
+                min = current.getData();
+            }
+            current = current.next;
+        }
+
+        return min;
+    }
+
+    // To search for a data value in a doubly linked list,
+
+    public boolean search(int data) {
+        NodeDoublyLinkedList current = head;
+
+        while (current != null) {
+            if (current.getData() == data) {
+                return true;
+            }
+            current = current.next;
+        }
+
+        return false;
+    }
+
+    //To reverse a doubly linked list,
+
+    public void reverse() {
+        if (isEmpty()) {
+            return;
+        }
+
+        NodeDoublyLinkedList current = head;
+        NodeDoublyLinkedList temp = null;
+
+        while (current != null) {
+            temp = current.prev;
+            current.prev = current.next;
+            current.next = temp;
+            current = current.prev;
+        }
+
+        if (temp != null) {
+            head = temp.prev;
+        }
+    }
+
+    // sort List
+    public void bubbleSort() {
+        if (isEmpty()) {
+            return;
+        }
+
+        boolean swapped;
+        do {
+            swapped = false;
+            NodeDoublyLinkedList current = head;
+            while (current.next != null) {
+                if (current.getData() > current.next.getData()) {
+                    int temp = current.getData();
+                    current.setData(current.next.getData());
+                    current.next.setData(temp);
+                    swapped = true;
+                }
+                current = current.next;
+            }
+        } while (swapped);
+    }
+
+
+    // update
+    public void Update (int oldVal ,int newVal){
+        NodeDoublyLinkedList curr = head;
+        while (curr != null){
+            if (curr.getData() == oldVal){
+                curr.setData(newVal);
+                break;
+            }
+            curr = curr.next;
+        }
+    }
+
+
+    public void printAllElement (){
+        NodeDoublyLinkedList curr = head;
+        System.out.print("[ ");
+
+        while (curr != null){
+            System.out.print((Integer)curr.getData() + " ,");
+            curr = curr.next;
+        }
+        System.out.println(" ]");
+    }
+
+}
